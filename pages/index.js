@@ -66,6 +66,7 @@ const Home = () => {
     <div className="root">
       <Head>
         <title> Ask Paul Graham </title>
+        <script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer></script>
       </Head>
       <div className="container">
         <div className="header">
