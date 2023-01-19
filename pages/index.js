@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Script from 'next/script'
 import buildspaceLogo from '../assets/buildspace-logo.png';
+import twitterLogo from '../assets/twitter.png';
 
 import { useState } from 'react';
 
@@ -13,29 +15,16 @@ const Home = () => {
   
   const [apiOutput, setApiOutput] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
-
-  // const callGenerateEndpoint = async () => {
-  //   setIsGenerating(true);
-    
-  //   console.log("Calling OpenAI...")
-  //   const response = await fetch('/api/generate', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ userInput }),
-  //   });
-
-  //   const data = await response.json();
-  //   const { output } = data;
-  //   console.log("OpenAI replied...", output.text)
-
-  //   setApiOutput(`${output.text}`);
-  //   setIsGenerating(false);
-  // }
+  const [questionCount, setQuestionCount] = useState(8);
 
   const callGenerateEndpoint = async () => {
+    if(userInput === "") {
+      setApiOutput("I'm ready to spill the beans, but first you need to ask the question");
+      return;
+    }
+
     setIsGenerating(true);
+    setQuestionCount(questionCount + 1);
     
     console.log("Calling new endpoint...")
     const response = await fetch('https://ask-paulg-production.up.railway.app/get_answer/', {
@@ -68,7 +57,8 @@ const Home = () => {
     <div className="root">
       <Head>
         <title> Ask Paul Graham </title>
-        <script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer></script>
+        {/* <script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer></script> */}
+        <Script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer />
       </Head>
       <div className="container">
         <div className="header">
@@ -76,7 +66,9 @@ const Home = () => {
             <h1> Ask Paul Graham </h1>
           </div>
           <div className="header-subtitle">
-            <h2> Ever wondered how it is like to have Paul Graham answer your questions about startups? Well! We've read through all of PG's content, used advanced AI magic, and tell you what he might say! </h2>
+            <h2> Ever wondered how it is like to have Paul Graham answer your questions about startups? Well! We've read through all of PG's content, used advanced AI magic, and tell you what he might say! </h2> 
+
+            <h2> {questionCount} questions asked so far ! </h2>
           </div>
         </div>
         <div className="prompt-container">
@@ -122,6 +114,20 @@ const Home = () => {
           </div>
         </a>
       </div>
+
+      <div className="twitter-container grow">
+        <a
+          href="https://twitter.com/sgondala2"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <div className="badge">
+            <Image src={twitterLogo} alt="buildspace logo" />
+            <p>sgondala2</p>
+          </div>
+        </a>
+      </div>
+
     </div>
   );
 };
