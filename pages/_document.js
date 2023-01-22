@@ -4,8 +4,8 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        <meta property="og:title" content="Ask PaulG" key="title"/>
-        <meta property="og:description" content="Paul Graham semantic search" key="description"/>
+        <meta property="og:title" content="Startup Advisor" key="title"/>
+        <meta property="og:description" content="Think of it like a startup mentor" key="description"/>
         {/* <meta
           property="og:image"
           content="https://cdn.buildspace.so/courses/gpt3-writer/project-og.jpg"

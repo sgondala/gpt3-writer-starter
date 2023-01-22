@@ -50,23 +50,42 @@ const Home = () => {
 
     setApiOutput(result);
     setIsGenerating(false);
+
+    // const references = data.essay_sources;
+    // const referencesContainer = document.createElement("div");
+    // references.forEach(reference => {
+    //   const referenceElement = document.createElement("p");
+    //   referenceElement.innerText = reference;
+    //   referencesContainer.appendChild(referenceElement);
+    // });
+    // // Append the references container to the parent element
+    // document.getElementById("references-container").appendChild(referencesContainer);
+    // }
+    // return (
+    // <div className="root">
+    // //... other code
+    // <div id="references-container"></div>
+    // </div>
+    // )
+    // }
+
   }
 
   
   return (
     <div className="root">
       <Head>
-        <title> Ask Paul Graham </title>
+        <title> Startup Advisor INC </title>
         {/* <script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer></script> */}
         <Script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer />
       </Head>
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1> Ask Paul Graham </h1>
+            <h1> Startup Advisor INC </h1>
           </div>
           <div className="header-subtitle">
-            <h2> Ever wondered how it is like to have Paul Graham answer your questions about startups? Well! We've read through all of PG's content, used advanced AI magic, and tell you what he might say! </h2> 
+            <h2> Welcome to the future of startup mentorship. Our advanced AI-powered platform provides expert advice and guidance, tailored to your specific needs. Say goodbye to the uncertainty and frustration of navigating the startup world alone, and hello to the success you deserve. Try us out now and experience the power of having a virtual mentor by your side, every step of the way.</h2> 
 
             <h2> {questionCount} questions asked so far ! </h2>
           </div>
