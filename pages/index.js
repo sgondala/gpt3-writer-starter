@@ -76,8 +76,8 @@ const Home = () => {
     <div className="root">
       <Head>
         <title> Startup Advisor INC </title>
-        {/* <script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer></script> */}
-        <Script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer />
+        <script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer></script>
+        {/* <Script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer /> */}
       </Head>
       <div className="container">
         <div className="header">
