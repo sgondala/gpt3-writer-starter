@@ -76,17 +76,20 @@ const Home = () => {
     <div className="root">
       <Head>
         <title> Startup Advisor INC </title>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-19CXX88PMC"></script>
-        <script>
+      </Head>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-19CXX88PMC"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
           window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
+          function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', 'G-19CXX88PMC');
-        </script>
-        {/* <script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer></script> */}
-        {/* <Script data-host="https://onduis.com" data-dnt="true" src="https://magic.onduis.com/js/script.js" id="ZwSg9rf6GA" async defer /> */}
-      </Head>
+        `}
+      </Script>
       <div className="container">
         <div className="header">
           <div className="header-title">
