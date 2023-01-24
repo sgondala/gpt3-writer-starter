@@ -17,6 +17,16 @@ const Home = () => {
   const [isGenerating, setIsGenerating] = useState(false)
   const [questionCount, setQuestionCount] = useState(8);
 
+  function isURL(str) {
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return pattern.test(str);
+  }
+
   const callGenerateEndpoint = async () => {
     if(userInput === "") {
       setApiOutput("I'm ready to spill the beans, but first you need to ask the question");
@@ -43,32 +53,39 @@ const Home = () => {
     console.log("OpenAI replied...", data)
     let result =''
     for (var key in data) {
-        if (data.hasOwnProperty(key)) {
-            result = result + key + ': ' + data[key] + '\n'
+        // If key is 'question' then continue
+        if (key === 'question') {
+            continue
+        }
+        else if (key === 'answer') {
+            result = result + 'Answer: ' + data[key] + '\n \n'
+            continue
+        }
+        // If key is 'essay_sources'
+        else if (key === 'essay_sources') {
+          let sources = Array.from(new Set(data[key]))
+          // Now this is an array. We want iterate on it
+          // and add line by line 
+          result = result + 'Sources: \n'
+          for (var i = 0; i < sources.length; i++) {
+            let source = sources[i];
+            // let essay_url = data[key][i];
+            if (!isURL(source)) {
+              // convert to desired format
+              source = source.replace(/_/g, " ").replace(".md", "").replace(/^\d+/g, "");
+              source = "Paul Graham's essay - " + source;
+            }
+            result = result + i + '. ' + source + '\n'
+          }
+        }
+        // There are no more keys, it should be an error
+        else {
+          result = result + 'Error: ' + data[key] + '\n'
         }
     }
 
     setApiOutput(result);
     setIsGenerating(false);
-
-    // const references = data.essay_sources;
-    // const referencesContainer = document.createElement("div");
-    // references.forEach(reference => {
-    //   const referenceElement = document.createElement("p");
-    //   referenceElement.innerText = reference;
-    //   referencesContainer.appendChild(referenceElement);
-    // });
-    // // Append the references container to the parent element
-    // document.getElementById("references-container").appendChild(referencesContainer);
-    // }
-    // return (
-    // <div className="root">
-    // //... other code
-    // <div id="references-container"></div>
-    // </div>
-    // )
-    // }
-
   }
 
   
@@ -96,9 +113,10 @@ const Home = () => {
             <h1> Startup Advisor INC </h1>
           </div>
           <div className="header-subtitle">
-            <h2> Welcome to the future of startup mentorship. Our advanced AI-powered platform provides expert advice and guidance, tailored to your specific needs. Say goodbye to the uncertainty and frustration of navigating the startup world alone, and hello to the success you deserve. Try us out now and experience the power of having a virtual mentor by your side, every step of the way.</h2> 
+            <h2> Hello, fellow entrepreneur! Welcome to the future of startup mentorship. Our advanced AI-powered platform summarizes information from YCombinator's Startup Library, Paul Graham essays, and other sources to provide you expert advice and timely guidance to your startup related questions.  Try us out and experience what it's like having an advisor who knows exactly what you need at every stage of building your startup. </h2> 
+            <h2> Try asking questions like 'How do I get startup ideas?', 'How much ESOP pool should I allocate?', etc. </h2>
 
-            <h2> {questionCount} questions asked so far ! </h2>
+            {/* <h2> {questionCount} questions asked so far ! </h2> */}
           </div>
         </div>
         <div className="prompt-container">
@@ -128,6 +146,7 @@ const Home = () => {
               <div className="output-content">
                 <p>{apiOutput}</p>
               </div>
+
             </div>
           )}
         </div>
@@ -154,6 +173,19 @@ const Home = () => {
           <div className="badge">
             <Image src={twitterLogo} alt="buildspace logo" />
             <p>sgondala2</p>
+          </div>
+        </a>
+      </div>
+
+      <div className="contact-container grow">
+        <a
+          href="https://twitter.com/sgondala2"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <div className="badge">
+            {/* <Image src={twitterLogo} alt="buildspace logo" /> */}
+            <p> Contact us if you want to use this technology on your data! </p>
           </div>
         </a>
       </div>
